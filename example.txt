@@ -1,0 +1,26 @@
+---
+event_name: "{{ event_name | default('Community Call') }}"
+event_date: "{{ event_date | default('2025-08-21 09:00:00') }}"
+event_location: "{{ event_location | default('REPLACE_WITH_ZOOM_URL') }}"
+timezone: "{{ timezone | default('America/Los_Angeles') }}"
+subject: "Reminder: {{ event_name | default('Community Call') }}"
+---
+
+Dear {{ first_name | default('Community Member') }},
+
+We're excited to confirm your registration for {{ event_name }}. 
+
+**Event Details:**
+- Date: {{ event_date }}
+- Location: {{ event_location }}
+- Timezone: {{ timezone }}
+
+Please find attached an ICS file with the event details for your calendar.
+
+We look forward to seeing you at the event!
+
+Best regards,
+The Conference Team
+
+---
+*This email was sent to {{ email }}*

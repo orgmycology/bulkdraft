@@ -1,0 +1,5 @@
+first_name,last_name,email,company,include
+John,Doe,john.doe@example.com,Acme Corp,TRUE
+Jane,Smith,jane.smith@example.com,Tech Solutions,FALSE
+Alice,Johnson,alice.johnson@example.com,Innovation Labs,TRUE
+Bob,Wilson,bob.wilson@example.com,Future Systems,true
