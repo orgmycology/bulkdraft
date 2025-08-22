@@ -1,0 +1,11 @@
+first_name,last_name,email,include
+John,Smith,johnsmith@email.com,TRUE
+Emily,Johnson,emilyjohnson@example.net,FALSE
+Michael,Williams,mwilliams@mailbox.org,TRUE
+Sophia,Brown,sophiabrown@webmail.com,FALSE
+David,Jones,davidjones@inbox.net,TRUE
+Olivia,Garcia,oliviagarcia@mail.com,FALSE
+Daniel,Miller,danielmiller@emailprovider.com,TRUE
+Ava,Davis,avadavis@messagebox.net,FALSE
+James,Rodriguez,jamesrodriguez@postoffice.com,TRUE
+Emma,Wilson,emmawilson@letterbox.org,FALSE

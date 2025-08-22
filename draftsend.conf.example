@@ -1,0 +1,34 @@
+# IMAP Configuration for DraftSend
+# Copy this file to ~/.config/draftsend.conf and update with your actual values
+
+[DEFAULT]
+# IMAP Server Settings
+imap_server=imap.fastmail.com
+imap_port=993
+imap_username=
+imap_password=
+
+# From Email Address (usually same as username)
+from_email=me@here.org
+
+# Optional: Default email for testing
+default_email=test@example.com
+
+# Common IMAP Settings for Different Providers:
+#
+# Gmail:
+# imap_server=imap.gmail.com
+# imap_port=993
+# Note: Use App Password, not regular password
+#
+# Outlook/Hotmail:
+# imap_server=outlook.office365.com
+# imap_port=993
+#
+# Yahoo:
+# imap_server=imap.mail.yahoo.com
+# imap_port=993
+#
+# Custom/Corporate:
+# imap_server=mail.yourcompany.com
+# imap_port=993 (or 143 for non-SSL)
