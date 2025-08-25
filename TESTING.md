@@ -1,10 +1,10 @@
-# DraftSend Testing Guide
+# bulkdraft Testing Guide
 
-This document describes how to run and understand the DraftSend test suite.
+This document describes how to run and understand the bulkdraft test suite.
 
 ## Test Suite Overview
 
-The DraftSend test suite is comprehensive and includes both offline and online tests:
+The bulkdraft test suite is comprehensive and includes both offline and online tests:
 
 - **Offline Tests**: Test function logic and responses without requiring IMAP connections
 - **Online Tests**: Test IMAP integration by creating actual draft emails (requires configuration)
@@ -124,10 +124,10 @@ No configuration required - all dependencies are mocked.
 ### For Online Tests
 1. Copy configuration template:
    ```bash
-   cp draftsend.conf.example ~/.config/draftsend.conf
+   cp bulkdraft.conf.example ~/.config/bulkdraft.conf
    ```
 
-2. Edit `~/.config/draftsend.conf` with your IMAP settings:
+2. Edit `~/.config/bulkdraft.conf` with your IMAP settings:
    ```ini
    [DEFAULT]
    imap_server=your.imap.server
@@ -194,7 +194,7 @@ AssertionError: Template should handle invalid syntax gracefully
 
 1. **Import Errors**
    ```bash
-   ModuleNotFoundError: No module named 'draftsend'
+   ModuleNotFoundError: No module named 'bulkdraft'
    ```
    - Ensure you're running tests from the project root directory
    - Check that `__init__.py` files exist in all package directories
@@ -203,7 +203,7 @@ AssertionError: Template should handle invalid syntax gracefully
    ```
    IMAP configuration not found - skipping online tests
    ```
-   - Copy and configure `~/.config/draftsend.conf`
+   - Copy and configure `~/.config/bulkdraft.conf`
    - Verify IMAP credentials are correct
 
 3. **IMAP Connection Failures**
@@ -225,7 +225,7 @@ AssertionError: Template should handle invalid syntax gracefully
 ### Test Data Cleanup
 
 Online tests create draft emails that can be manually deleted:
-- Look for subjects containing "DraftSend Test" or "Safe to Delete"  
+- Look for subjects containing "bulkdraft Test" or "Safe to Delete"  
 - These are safe to remove from your Drafts folder
 - Tests do not automatically clean up to allow manual verification
 

@@ -9,7 +9,7 @@ import csv
 import yaml
 from unittest.mock import patch, mock_open
 
-from draftsend.context import load_context_file, dedupe_records
+from bulkdraft.context import load_context_file, dedupe_records
 
 
 class TestContext(unittest.TestCase):

@@ -1,4 +1,4 @@
-# DraftSend
+# bulkdraft
 
 A Python utility for creating personalized draft emails with calendar invitations from templates and context data. Perfect for bulk invitations, newsletters, or any personalized email campaigns.
 
@@ -28,10 +28,10 @@ pip install pyyaml~=6.0 markdown~=3.4 ics~=0.7 pytz~=2023.3 jinja2~=3.1
 
 1. Copy the configuration template:
    ```bash
-   cp draftsend.conf.example ~/.config/draftsend.conf
+   cp bulkdraft.conf.example ~/.config/bulkdraft.conf
    ```
 
-2. Edit `~/.config/draftsend.conf` with your IMAP settings:
+2. Edit `~/.config/bulkdraft.conf` with your IMAP settings:
    ```ini
    [DEFAULT]
    imap_server=imap.gmail.com
@@ -47,13 +47,13 @@ pip install pyyaml~=6.0 markdown~=3.4 ics~=0.7 pytz~=2023.3 jinja2~=3.1
    ```
    ❌ Configuration file not found!
    Please copy the example configuration file:
-     cp draftsend.conf.example ~/.config/draftsend.conf
-   Then edit ~/.config/draftsend.conf with your IMAP settings.
+     cp bulkdraft.conf.example ~/.config/bulkdraft.conf
+   Then edit ~/.config/bulkdraft.conf with your IMAP settings.
    ```
 
 ## Usage
 
-DraftSend has two main modes: **template processing** and **IMAP testing**.
+bulkdraft has two main modes: **template processing** and **IMAP testing**.
 
 ### Test IMAP Settings
 
@@ -237,7 +237,7 @@ python main.py test "test@example.com" "Configuration Test" "Testing IMAP setup"
    ```
    ❌ Configuration file not found!
    ```
-   - Copy `draftsend.conf.example` to `~/.config/draftsend.conf`
+   - Copy `bulkdraft.conf.example` to `~/.config/bulkdraft.conf`
    - Edit with your IMAP settings
 
 2. **Authentication Failed**
@@ -274,7 +274,7 @@ python -v main.py test "email@example.com" "Test" "Message"
 
 ## Development and Testing
 
-DraftSend includes a comprehensive test suite with both offline and online tests.
+bulkdraft includes a comprehensive test suite with both offline and online tests.
 
 ### Running Tests
 
@@ -295,9 +295,9 @@ python run_tests.py --module test_config
 ### Project Structure
 
 ```
-draftsend/
+bulkdraft/
 ├── main.py                    # Main entry point
-├── draftsend/                 # Package modules
+├── bulkdraft/                 # Package modules
 │   ├── __init__.py
 │   ├── config.py              # Configuration management
 │   ├── template.py            # Template processing
@@ -313,7 +313,7 @@ draftsend/
 ├── TESTING.md                 # Testing documentation
 ├── example.txt                # Example template
 ├── recipients.csv             # Example context data
-└── draftsend.conf.example     # Configuration template
+└── bulkdraft.conf.example     # Configuration template
 ```
 
 For detailed testing information, see [TESTING.md](TESTING.md).
@@ -339,4 +339,4 @@ For detailed testing information, see [TESTING.md](TESTING.md).
 
 ## License
 
-This tool is provided as-is for educational and productivity purposes.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

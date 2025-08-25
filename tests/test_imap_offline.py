@@ -7,7 +7,7 @@ from unittest.mock import Mock, patch, MagicMock
 import imaplib
 from email.mime.multipart import MIMEMultipart
 
-from draftsend.imap_client import find_drafts_folder, save_draft_to_imap, test_imap_settings
+from bulkdraft.imap_client import find_drafts_folder, save_draft_to_imap, test_imap_settings
 
 
 class TestIMAPOffline(unittest.TestCase):
@@ -74,7 +74,7 @@ class TestIMAPOffline(unittest.TestCase):
         print_calls = [str(call) for call in mock_print.call_args_list]
         self.assertTrue(any('Could not list folders' in call for call in print_calls))
 
-    @patch('draftsend.imap_client.find_drafts_folder')
+    @patch('bulkdraft.imap_client.find_drafts_folder')
     @patch('imaplib.Time2Internaldate')
     @patch('pytz.UTC')
     def test_save_draft_to_imap_success(self, mock_utc, mock_time2internal, mock_find_folder):
@@ -95,7 +95,7 @@ class TestIMAPOffline(unittest.TestCase):
         # Check success message
         mock_print.assert_called_with('✓ Draft saved to Drafts')
 
-    @patch('draftsend.imap_client.find_drafts_folder')
+    @patch('bulkdraft.imap_client.find_drafts_folder')
     @patch('imaplib.Time2Internaldate')
     def test_save_draft_to_imap_failure(self, mock_time2internal, mock_find_folder):
         """Test draft saving failure."""
@@ -109,7 +109,7 @@ class TestIMAPOffline(unittest.TestCase):
         # Check error message
         mock_print.assert_called_with('✗ Failed to save draft to Drafts: Permission denied')
 
-    @patch('draftsend.imap_client.find_drafts_folder')
+    @patch('bulkdraft.imap_client.find_drafts_folder')
     def test_save_draft_to_imap_exception(self, mock_find_folder):
         """Test exception handling in draft saving."""
         mock_find_folder.return_value = 'Drafts'
@@ -121,7 +121,7 @@ class TestIMAPOffline(unittest.TestCase):
         # Check error message
         mock_print.assert_called_with('✗ Error saving draft: Connection lost')
 
-    @patch('draftsend.imap_client.load_config')
+    @patch('bulkdraft.imap_client.load_config')
     @patch('imaplib.IMAP4_SSL')
     def test_test_imap_settings_success(self, mock_imap_ssl, mock_load_config):
         """Test successful IMAP settings test."""
@@ -139,7 +139,7 @@ class TestIMAPOffline(unittest.TestCase):
         mock_conn = Mock()
         mock_imap_ssl.return_value = mock_conn
         
-        with patch('draftsend.imap_client.save_draft_to_imap') as mock_save:
+        with patch('bulkdraft.imap_client.save_draft_to_imap') as mock_save:
             with patch('builtins.print') as mock_print:
                 result = test_imap_settings('recipient@example.com', 'Test Subject', 'Test message')
                 
@@ -157,7 +157,7 @@ class TestIMAPOffline(unittest.TestCase):
         success_calls = [str(call) for call in mock_print.call_args_list]
         self.assertTrue(any('successfully created' in call for call in success_calls))
 
-    @patch('draftsend.imap_client.load_config')
+    @patch('bulkdraft.imap_client.load_config')
     @patch('imaplib.IMAP4_SSL')
     def test_test_imap_settings_connection_failure(self, mock_imap_ssl, mock_load_config):
         """Test IMAP settings test with connection failure."""
@@ -181,7 +181,7 @@ class TestIMAPOffline(unittest.TestCase):
         error_calls = [str(call) for call in mock_print.call_args_list]
         self.assertTrue(any('IMAP test failed' in call for call in error_calls))
 
-    @patch('draftsend.imap_client.load_config')
+    @patch('bulkdraft.imap_client.load_config')
     @patch('imaplib.IMAP4_SSL')
     def test_test_imap_settings_auth_failure(self, mock_imap_ssl, mock_load_config):
         """Test IMAP settings test with authentication failure."""

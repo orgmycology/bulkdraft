@@ -96,9 +96,9 @@ def test_imap_settings(email, subject, message_content):
         # Add Fastmail-specific headers for sendable drafts
         msg['Message-ID'] = f"<{datetime.now().strftime('%Y%m%d%H%M%S')}.{hash(email)}@fastmail>"
         msg['Date'] = email.utils.formatdate(localtime=True)
-        msg['User-Agent'] = 'DraftSend/1.0'
+        msg['User-Agent'] = 'bulkdraft/1.0'
         msg['MIME-Version'] = '1.0'
-        msg['X-Mailer'] = 'DraftSend Python Script'
+        msg['X-Mailer'] = 'bulkdraft Python Script'
         
         # Add plain text version
         msg.attach(MIMEText(message_content, 'plain'))

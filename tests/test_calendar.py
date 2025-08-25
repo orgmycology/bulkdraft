@@ -7,7 +7,7 @@ from datetime import datetime
 from unittest.mock import patch
 import pytz
 
-from draftsend.calendar import create_ics_file
+from bulkdraft.calendar import create_ics_file
 
 
 class TestCalendar(unittest.TestCase):
@@ -121,7 +121,7 @@ class TestCalendar(unittest.TestCase):
         self.assertTrue(lines[0].startswith('BEGIN:VCALENDAR'))
         self.assertTrue(lines[-1].startswith('END:VCALENDAR'))
 
-    @patch('draftsend.calendar.datetime')
+    @patch('bulkdraft.calendar.datetime')
     def test_create_ics_file_datetime_fallback(self, mock_datetime):
         """Test datetime fallback when date parsing fails."""
         mock_now = datetime(2023, 12, 1, 15, 30, 0)

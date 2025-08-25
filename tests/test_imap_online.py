@@ -9,18 +9,18 @@ import unittest
 import os
 from unittest import skip
 
-from draftsend.config import load_config
-from draftsend.imap_client import test_imap_settings
-from draftsend.email_builder import create_draft_email
-from draftsend.calendar import create_ics_file
-from draftsend.imap_client import save_draft_to_imap
+from bulkdraft.config import load_config
+from bulkdraft.imap_client import test_imap_settings
+from bulkdraft.email_builder import create_draft_email
+from bulkdraft.calendar import create_ics_file
+from bulkdraft.imap_client import save_draft_to_imap
 import imaplib
 
 
 def check_imap_config():
     """Check if IMAP configuration is available for testing."""
     try:
-        config_path = os.path.expanduser('~/.config/draftsend.conf')
+        config_path = os.path.expanduser('~/.config/bulkdraft.conf')
         return os.path.exists(config_path)
     except:
         return False
@@ -41,8 +41,8 @@ class TestIMAPOnline(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures."""
-        self.test_subject = "DraftSend Online Test - Safe to Delete"
-        self.test_message = "This is a test message from the DraftSend test suite. Safe to delete."
+        self.test_subject = "bulkdraft Online Test - Safe to Delete"
+        self.test_message = "This is a test message from the bulkdraft test suite. Safe to delete."
 
     def test_imap_connection_and_auth(self):
         """Test IMAP connection and authentication."""
@@ -85,8 +85,8 @@ class TestIMAPOnline(unittest.TestCase):
         draft_email = create_draft_email(
             self.config,
             self.test_email,
-            "DraftSend Integration Test - Safe to Delete",
-            "<h1>Integration Test</h1><p>This is a test email from DraftSend integration tests.</p>",
+            "bulkdraft Integration Test - Safe to Delete",
+            "<h1>Integration Test</h1><p>This is a test email from bulkdraft integration tests.</p>",
             ics_content
         )
         
@@ -107,7 +107,7 @@ class TestIMAPOnline(unittest.TestCase):
 
     def test_drafts_folder_detection(self):
         """Test that drafts folder can be detected on real IMAP server."""
-        from draftsend.imap_client import find_drafts_folder
+        from bulkdraft.imap_client import find_drafts_folder
         
         try:
             imap_conn = imaplib.IMAP4_SSL(self.config['imap_server'], int(self.config['imap_port']))
@@ -176,9 +176,9 @@ class TestIMAPOnline(unittest.TestCase):
 if __name__ == '__main__':
     # Print helpful message about online tests
     if not check_imap_config():
-        print("IMAP configuration not found at ~/.config/draftsend.conf")
+        print("IMAP configuration not found at ~/.config/bulkdraft.conf")
         print("Online tests will be skipped. To run them:")
-        print("1. Copy draftsend.conf.example to ~/.config/draftsend.conf")
+        print("1. Copy bulkdraft.conf.example to ~/.config/bulkdraft.conf")
         print("2. Edit the file with your IMAP settings")
         print("3. Run tests again")
     else:

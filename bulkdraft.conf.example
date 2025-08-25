@@ -1,5 +1,5 @@
-# IMAP Configuration for DraftSend
-# Copy this file to ~/.config/draftsend.conf and update with your actual values
+# IMAP Configuration for bulkdraft
+# Copy this file to ~/.config/bulkdraft.conf and update with your actual values
 
 [DEFAULT]
 # IMAP Server Settings

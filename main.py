@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 
 """
-DraftSend - A Python utility for creating personalized draft emails.
+bulkdraft - A Python utility for creating personalized draft emails.
 
-Main entry point for the DraftSend application.
+Main entry point for the bulkdraft application.
 """
 
-from draftsend.cli import parse_command_line, process_template_mode
-from draftsend.imap_client import test_imap_settings
+from bulkdraft.cli import parse_command_line, process_template_mode
+from bulkdraft.imap_client import test_imap_settings
 
 
 def main():

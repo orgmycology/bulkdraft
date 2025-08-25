@@ -94,11 +94,11 @@ def create_draft_email(config, recipient, subject, html_content, ics_content):
     # Add Fastmail-specific headers for sendable drafts
     msg['Message-ID'] = f"<{datetime.now().strftime('%Y%m%d%H%M%S')}.{hash(recipient)}@fastmail>"
     msg['Date'] = email.utils.formatdate(localtime=True)
-    msg['User-Agent'] = 'DraftSend/1.0'
+    msg['User-Agent'] = 'bulkdraft/1.0'
     
     # Add standard email headers that some servers expect
     msg['MIME-Version'] = '1.0'
-    msg['X-Mailer'] = 'DraftSend Python Script'
+    msg['X-Mailer'] = 'bulkdraft Python Script'
 
     # Inner container for alternative text formats
     msg_alternative = MIMEMultipart('alternative')

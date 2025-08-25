@@ -7,7 +7,7 @@ import tempfile
 import os
 from unittest.mock import patch, mock_open
 
-from draftsend.template import load_content, render_template, render_metadata_templates
+from bulkdraft.template import load_content, render_template, render_metadata_templates
 
 
 class TestTemplate(unittest.TestCase):

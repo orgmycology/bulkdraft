@@ -8,7 +8,7 @@ import os
 from unittest.mock import patch, mock_open
 import configparser
 
-from draftsend.config import load_config
+from bulkdraft.config import load_config
 
 
 class TestConfig(unittest.TestCase):
@@ -40,7 +40,7 @@ from_email=test@example.com
         # Check that helpful error message is printed
         print_calls = [call.args[0] for call in mock_print.call_args_list]
         self.assertTrue(any('Configuration file not found' in call for call in print_calls))
-        self.assertTrue(any('cp draftsend.conf.example' in call for call in print_calls))
+        self.assertTrue(any('cp bulkdraft.conf.example' in call for call in print_calls))
 
     @patch('os.path.exists')
     def test_load_config_success(self, mock_exists):
@@ -74,14 +74,14 @@ from_email=test@example.com
     @patch('os.path.expanduser')
     def test_config_path_expansion(self, mock_expanduser):
         """Test that config path is properly expanded."""
-        mock_expanduser.return_value = '/home/user/.config/draftsend.conf'
+        mock_expanduser.return_value = '/home/user/.config/bulkdraft.conf'
         
         with patch('os.path.exists', return_value=False):
             with patch('builtins.exit'):
                 with patch('builtins.print'):
                     load_config()
                     
-        mock_expanduser.assert_called_once_with('~/.config/draftsend.conf')
+        mock_expanduser.assert_called_once_with('~/.config/bulkdraft.conf')
 
 
 if __name__ == '__main__':

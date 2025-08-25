@@ -6,7 +6,7 @@ import unittest
 from email.mime.multipart import MIMEMultipart
 from unittest.mock import patch
 
-from draftsend.email_builder import (
+from bulkdraft.email_builder import (
     wrap_html_for_email, 
     html_to_plain_text, 
     create_draft_email
@@ -129,9 +129,9 @@ END:VCALENDAR"""
         # Check Fastmail-specific headers
         self.assertIn('Message-ID', result)
         self.assertIn('Date', result)
-        self.assertEqual(result['User-Agent'], 'DraftSend/1.0')
+        self.assertEqual(result['User-Agent'], 'bulkdraft/1.0')
         self.assertEqual(result['MIME-Version'], '1.0')
-        self.assertEqual(result['X-Mailer'], 'DraftSend Python Script')
+        self.assertEqual(result['X-Mailer'], 'bulkdraft Python Script')
 
     def test_create_draft_email_mime_structure(self):
         """Test MIME structure of draft email."""
@@ -192,7 +192,7 @@ END:VCALENDAR"""
         self.assertIn('filename="invite.ics"', attachment_part.get('Content-Disposition', ''))
         self.assertIn('method=REQUEST', attachment_part.get('Content-Type', ''))
 
-    @patch('draftsend.email_builder.datetime')
+    @patch('bulkdraft.email_builder.datetime')
     def test_create_draft_email_message_id(self, mock_datetime):
         """Test Message-ID generation."""
         mock_datetime.now.return_value.strftime.return_value = '20231201120000'

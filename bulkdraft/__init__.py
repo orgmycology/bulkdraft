@@ -1,5 +1,5 @@
 """
-DraftSend - A Python utility for creating personalized draft emails with calendar invitations.
+bulkdraft - A Python utility for creating personalized draft emails with calendar invitations.
 
 This package provides functionality for:
 - Template-based email generation with Jinja2
@@ -10,7 +10,7 @@ This package provides functionality for:
 """
 
 __version__ = "1.0.0"
-__author__ = "DraftSend Contributors"
+__author__ = "bulkdraft Contributors"
 
 from .config import load_config
 from .template import load_content, render_template, render_metadata_templates

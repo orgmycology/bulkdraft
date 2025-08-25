@@ -7,7 +7,7 @@ import argparse
 from unittest.mock import patch, Mock, MagicMock
 import sys
 
-from draftsend.cli import parse_command_line, process_template_mode
+from bulkdraft.cli import parse_command_line, process_template_mode
 
 
 class TestCLI(unittest.TestCase):
@@ -23,7 +23,7 @@ class TestCLI(unittest.TestCase):
 
     def test_parse_command_line_template_mode(self):
         """Test parsing template mode arguments."""
-        sys.argv = ['draftsend', 'template', 'test.txt', '--context', 'data.csv']
+        sys.argv = ['bulkdraft', 'template', 'test.txt', '--context', 'data.csv']
         
         args = parse_command_line()
         
@@ -33,7 +33,7 @@ class TestCLI(unittest.TestCase):
 
     def test_parse_command_line_test_mode(self):
         """Test parsing test mode arguments."""
-        sys.argv = ['draftsend', 'test', 'test@example.com', 'Test Subject', 'Test message']
+        sys.argv = ['bulkdraft', 'test', 'test@example.com', 'Test Subject', 'Test message']
         
         args = parse_command_line()
         
@@ -44,7 +44,7 @@ class TestCLI(unittest.TestCase):
 
     def test_parse_command_line_backward_compatibility(self):
         """Test backward compatibility with old argument format."""
-        sys.argv = ['draftsend', 'template.txt', '--context', 'data.csv']
+        sys.argv = ['bulkdraft', 'template.txt', '--context', 'data.csv']
         
         args = parse_command_line()
         
@@ -54,17 +54,17 @@ class TestCLI(unittest.TestCase):
 
     def test_parse_command_line_legacy_csv_flag(self):
         """Test legacy --csv flag support."""
-        sys.argv = ['draftsend', 'template', 'test.txt', '--csv', 'data.csv']
+        sys.argv = ['bulkdraft', 'template', 'test.txt', '--csv', 'data.csv']
         
         args = parse_command_line()
         
         self.assertEqual(args.command, 'template')
         self.assertEqual(args.csv, 'data.csv')
 
-    @patch('draftsend.cli.load_config')
-    @patch('draftsend.cli.load_content')
-    @patch('draftsend.cli.load_context_file')
-    @patch('draftsend.cli.dedupe_records')
+    @patch('bulkdraft.cli.load_config')
+    @patch('bulkdraft.cli.load_content')
+    @patch('bulkdraft.cli.load_context_file')
+    @patch('bulkdraft.cli.dedupe_records')
     @patch('imaplib.IMAP4_SSL')
     def test_process_template_mode_basic_flow(self, mock_imap_ssl, mock_dedupe, 
                                             mock_load_context, mock_load_content, mock_load_config):
@@ -101,12 +101,12 @@ class TestCLI(unittest.TestCase):
         args.context = 'data.csv'
         args.csv = None
         
-        with patch('draftsend.cli.render_metadata_templates') as mock_render_meta:
-            with patch('draftsend.cli.render_template') as mock_render:
-                with patch('draftsend.cli.markdown.markdown') as mock_markdown:
-                    with patch('draftsend.cli.create_ics_file') as mock_ics:
-                        with patch('draftsend.cli.create_draft_email') as mock_create_email:
-                            with patch('draftsend.cli.save_draft_to_imap') as mock_save:
+        with patch('bulkdraft.cli.render_metadata_templates') as mock_render_meta:
+            with patch('bulkdraft.cli.render_template') as mock_render:
+                with patch('bulkdraft.cli.markdown.markdown') as mock_markdown:
+                    with patch('bulkdraft.cli.create_ics_file') as mock_ics:
+                        with patch('bulkdraft.cli.create_draft_email') as mock_create_email:
+                            with patch('bulkdraft.cli.save_draft_to_imap') as mock_save:
                                 with patch('builtins.print'):
                                     
                                     # Set up mocks
@@ -128,10 +128,10 @@ class TestCLI(unittest.TestCase):
         mock_conn.login.assert_called_once()
         mock_conn.logout.assert_called_once()
 
-    @patch('draftsend.cli.load_config')
-    @patch('draftsend.cli.load_content')  
-    @patch('draftsend.cli.load_context_file')
-    @patch('draftsend.cli.dedupe_records')
+    @patch('bulkdraft.cli.load_config')
+    @patch('bulkdraft.cli.load_content')  
+    @patch('bulkdraft.cli.load_context_file')
+    @patch('bulkdraft.cli.dedupe_records')
     @patch('imaplib.IMAP4_SSL')
     def test_process_template_mode_include_filtering(self, mock_imap_ssl, mock_dedupe,
                                                    mock_load_context, mock_load_content, mock_load_config):
@@ -158,12 +158,12 @@ class TestCLI(unittest.TestCase):
         args.context = 'data.csv'
         args.csv = None
         
-        with patch('draftsend.cli.render_metadata_templates') as mock_render_meta:
-            with patch('draftsend.cli.render_template'):
-                with patch('draftsend.cli.markdown.markdown'):
-                    with patch('draftsend.cli.create_ics_file'):
-                        with patch('draftsend.cli.create_draft_email'):
-                            with patch('draftsend.cli.save_draft_to_imap') as mock_save:
+        with patch('bulkdraft.cli.render_metadata_templates') as mock_render_meta:
+            with patch('bulkdraft.cli.render_template'):
+                with patch('bulkdraft.cli.markdown.markdown'):
+                    with patch('bulkdraft.cli.create_ics_file'):
+                        with patch('bulkdraft.cli.create_draft_email'):
+                            with patch('bulkdraft.cli.save_draft_to_imap') as mock_save:
                                 with patch('builtins.print') as mock_print:
                                     
                                     mock_render_meta.return_value = {'event_name': 'Test', 'subject': 'Test'}
@@ -178,9 +178,9 @@ class TestCLI(unittest.TestCase):
         skip_calls = [call for call in print_calls if 'Skipping' in call and 'Jane' in call]
         self.assertTrue(len(skip_calls) > 0)
 
-    @patch('draftsend.cli.load_config')
-    @patch('draftsend.cli.load_content')
-    @patch('draftsend.cli.load_context_file')
+    @patch('bulkdraft.cli.load_config')
+    @patch('bulkdraft.cli.load_content')
+    @patch('bulkdraft.cli.load_context_file')
     def test_process_template_mode_no_context_file(self, mock_load_context, mock_load_content, mock_load_config):
         """Test template processing without context file."""
         mock_config = {'from_email': 'test@example.com', 'imap_server': 'test.com', 'imap_port': '993',
@@ -194,18 +194,18 @@ class TestCLI(unittest.TestCase):
         args.context = None
         args.csv = None
         
-        with patch('draftsend.cli.dedupe_records') as mock_dedupe:
+        with patch('bulkdraft.cli.dedupe_records') as mock_dedupe:
             with patch('imaplib.IMAP4_SSL') as mock_imap_ssl:
                 mock_conn = Mock()
                 mock_imap_ssl.return_value = mock_conn
                 mock_dedupe.return_value = [{}]
                 
-                with patch('draftsend.cli.render_metadata_templates'):
-                    with patch('draftsend.cli.render_template'):
-                        with patch('draftsend.cli.markdown.markdown'):
-                            with patch('draftsend.cli.create_ics_file'):
-                                with patch('draftsend.cli.create_draft_email'):
-                                    with patch('draftsend.cli.save_draft_to_imap'):
+                with patch('bulkdraft.cli.render_metadata_templates'):
+                    with patch('bulkdraft.cli.render_template'):
+                        with patch('bulkdraft.cli.markdown.markdown'):
+                            with patch('bulkdraft.cli.create_ics_file'):
+                                with patch('bulkdraft.cli.create_draft_email'):
+                                    with patch('bulkdraft.cli.save_draft_to_imap'):
                                         with patch('builtins.print'):
                                             process_template_mode(args)
         
@@ -214,7 +214,7 @@ class TestCLI(unittest.TestCase):
 
     def test_parse_command_line_help_template(self):
         """Test help text for template command."""
-        sys.argv = ['draftsend', 'template', '--help']
+        sys.argv = ['bulkdraft', 'template', '--help']
         
         with self.assertRaises(SystemExit):
             with patch('sys.stderr'):  # Suppress help output
@@ -222,7 +222,7 @@ class TestCLI(unittest.TestCase):
 
     def test_parse_command_line_help_test(self):
         """Test help text for test command."""
-        sys.argv = ['draftsend', 'test', '--help']
+        sys.argv = ['bulkdraft', 'test', '--help']
         
         with self.assertRaises(SystemExit):
             with patch('sys.stderr'):  # Suppress help output

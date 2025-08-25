@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Test runner for DraftSend test suite.
+Test runner for bulkdraft test suite.
 
 This script runs all tests and provides options for running specific test suites.
 """
@@ -79,7 +79,7 @@ def main():
     """Main test runner entry point."""
     import argparse
     
-    parser = argparse.ArgumentParser(description='DraftSend Test Runner')
+    parser = argparse.ArgumentParser(description='bulkdraft Test Runner')
     parser.add_argument(
         '--mode', 
         choices=['all', 'offline', 'online'], 
